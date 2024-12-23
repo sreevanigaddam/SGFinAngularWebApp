@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrencyComponent implements OnInit {
   currencies = [
-    { currencyname: 'US Dollar', currencycode: 'USD', date: new Date() },
-    { currencyname: 'Euro', currencycode: 'EUR', date: new Date() },
-    { currencyname: 'Japanese Yen', currencycode: 'JPY', date: new Date() },
+    { currencyname: 'US Dollar', currencycode: 'USD', date: new Date(), isEditing: false },
+    { currencyname: 'Euro', currencycode: 'EUR', date: new Date(), isEditing: false },
+    { currencyname: 'Japanese Yen', currencycode: 'JPY', date: new Date(), isEditing: false },
     // Add more currency data here
   ];
   filteredCurrencies = this.currencies;
@@ -35,5 +35,14 @@ export class CurrencyComponent implements OnInit {
       return false;
     });
   }
-}
 
+  editCurrency(currency: any): void {
+    currency.isEditing = true;
+  }
+
+  saveCurrency(currency: any): void {
+    currency.isEditing = false;
+    console.log('Currency saved', currency);
+    // Add logic to save the currency data, e.g., send it to the server
+  }
+}

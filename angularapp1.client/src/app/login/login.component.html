@@ -9,9 +9,9 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
     </div>
-    <button type="submit" class="btn btn-primary" >Login</button>
+    <button type="submit" class="btn btn-primary">Login</button>
     <div class="form-group">
-      <!--<label for="username">[(ngModel)]="errormessage"</label>--> 
+      <p class="text-danger">{{ errormessage }}</p>
     </div>
   </form>
 </div>
@@ -52,3 +52,7 @@
       background-color: #0056b3;
     }
 </style>
+
+
+
+
