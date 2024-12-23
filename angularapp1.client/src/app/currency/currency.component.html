@@ -1,0 +1,85 @@
+<div class="container">
+  <h2>Currency Table</h2>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search for currencies.." [(ngModel)]="searchQuery">
+    <select [(ngModel)]="searchCriteria">
+      <option value="currencyname">Currency Name</option>
+      <option value="currencycode">Currency Code</option>
+      <option value="date">Date</option>
+    </select>
+    <button (click)="filterTable()">Search</button>
+  </div>
+  <table id="currencyTable" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Currency Name</th>
+        <th>Currency Code</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let currency of filteredCurrencies">
+        <td>{{ currency.currencyname }}</td>
+        <td>{{ currency.currencycode }}</td>
+        <td>{{ currency.date | date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .search-container {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  #searchInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  select {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+  }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+    .table th, .table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    .table th {
+      background-color: #f2f2f2;
+    }
+</style>
+

@@ -1,0 +1,17 @@
+@AngularApp1.Server_HostAddress = http://localhost:5190
+
+### GET request
+GET {{AngularApp1.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### POST request
+POST {{AngularApp1.Server_HostAddress}}/Login/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "yourUsername",
+  "password": "yourPassword"
+}
+
+###
