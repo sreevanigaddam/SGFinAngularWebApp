@@ -1,101 +1,41 @@
-<div class="container">
-  <h2>Currency Table</h2>
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search for currencies.." [(ngModel)]="searchQuery">
-    <select [(ngModel)]="searchCriteria">
-      <option value="currencyname">Currency Name</option>
-      <option value="currencycode">Currency Code</option>
-      <option value="date">Date</option>
-    </select>
-    <button (click)="filterTable()">Search</button>
-  </div>
-  <table id="currencyTable" class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Currency Name</th>
-        <th>Currency Code</th>
-        <th>Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let currency of filteredCurrencies">
-        <td *ngIf="!currency.isEditing">{{ currency.currencyname }}</td>
-        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyname" class="form-control"></td>
-        <td *ngIf="!currency.isEditing">{{ currency.currencycode }}</td>
-        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode" class="form-control"></td>
-        <td *ngIf="!currency.isEditing">{{ currency.date | date }}</td>
-        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.date" class="form-control" type="date"></td>
-        <td>
-          <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>
-          <button *ngIf="currency.isEditing" (click)="saveCurrency(currency)">Save</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div>
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Search..." (input)="filterTable()">
+  <select [(ngModel)]="searchCriteria" (change)="filterTable()">
+    <option value="currencyname">Currency Name</option>
+    <option value="currencycode">Currency Code</option>
+    <option value="date">Date</option>
+  </select>
 </div>
+<br />
 
-<style>
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-
-  .search-container {
-    display: flex;
-    margin-bottom: 20px;
-  }
-
-  #searchInput {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  select {
-    margin-left: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-  }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-    .table th, .table td {
-      padding: 10px;
-      text-align: left;
-      border: 1px solid #ddd;
-    }
-
-    .table th {
-      background-color: #f2f2f2;
-    }
-
-  .form-control {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-</style>
-
-
+<table border="1" align="center">
+  <thead>
+    <tr>
+      <th>Currency Name</th>
+      <th>Currency Code</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let currency of filteredCurrencies; let i = index">
+      <td *ngIf="!currency.isEditing">{{ currency.currencyname }}</td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyname"></td>
+      <td *ngIf="!currency.isEditing">{{ currency.currencycode }}</td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>
+      <td>{{ currency.date | date }}</td>
+      <td>
+        <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>
+        <button *ngIf="currency.isEditing" (click)="saveCurrency(currency)">Save</button>
+        <button (click)="deleteCurrency(i)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<div>
+  <h3>Add New Currency</h3>
+  <input type="text" [(ngModel)]="newCurrency.currencyname" placeholder="Currency Name">
+  <input type="text" [(ngModel)]="newCurrency.currencycode" placeholder="Currency Code">
+  <button (click)="addCurrency()">Add Currency</button>
+</div>

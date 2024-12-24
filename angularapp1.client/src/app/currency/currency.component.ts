@@ -15,6 +15,7 @@ export class CurrencyComponent implements OnInit {
   filteredCurrencies = this.currencies;
   searchQuery: string = '';
   searchCriteria: string = 'currencyname';
+  newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
 
   constructor() { }
 
@@ -44,5 +45,16 @@ export class CurrencyComponent implements OnInit {
     currency.isEditing = false;
     console.log('Currency saved', currency);
     // Add logic to save the currency data, e.g., send it to the server
+  }
+
+  addCurrency(): void {
+    this.currencies.push({ ...this.newCurrency, date: new Date(), isEditing: false });
+    this.newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
+    this.filterTable();
+  }
+
+  deleteCurrency(index: number): void {
+    this.currencies.splice(index, 1);
+    this.filterTable();
   }
 }

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SG.FinApp.EntityLayer\SG.FinApp.EntityLayer.csproj" />
+    <ProjectReference Include="..\SG.FinApp.Server.Data\SG.FinApp.Server.Data.csproj" />
+  </ItemGroup>
+
+</Project>
