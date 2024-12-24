@@ -21,7 +21,15 @@ namespace SG.FinApp.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Currency>>> GetAll()
         {
-            var currencies = await _currencyService.GetAllAsync();
+            var currencies = await Task.Run(() => new List<Currency>()
+            {
+                new Currency { CurrencyName = "US Dollar", CurrencyCode = "USD", Date = DateTime.Now , Id =1, isEditing = false},
+                new Currency { CurrencyName = "Euro", CurrencyCode = "EUR", Date = DateTime.Now, Id=2 , isEditing = false},
+                new Currency { CurrencyName = "Japanese Yen", CurrencyCode = "JPY", Date = DateTime.Now, Id=3, isEditing = false},
+                // Add more currency data here
+            });
+
+            //var currencies = await _currencyService.GetAllAsync();
             return Ok(currencies);
         }
 

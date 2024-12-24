@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-currency',
@@ -6,21 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./currency.component.css']
 })
 export class CurrencyComponent implements OnInit {
-  currencies = [
-    { currencyname: 'US Dollar', currencycode: 'USD', date: new Date(), isEditing: false },
-    { currencyname: 'Euro', currencycode: 'EUR', date: new Date(), isEditing: false },
-    { currencyname: 'Japanese Yen', currencycode: 'JPY', date: new Date(), isEditing: false },
-    // Add more currency data here
-  ];
-  filteredCurrencies = this.currencies;
+  currencies: any[] = [];
+  filteredCurrencies: any[] = [];
   searchQuery: string = '';
   searchCriteria: string = 'currencyname';
   newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
 
-  constructor() { }
+  private apiUrl = 'http://localhost:5190/api/currency'; // Replace with your actual API URL
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // Initialization logic here
+    this.loadCurrencies();
+  }
+
+  loadCurrencies(): void {
+    this.http.get<any[]>(this.apiUrl).subscribe(data => {
+      console.log('Currencies loaded:', data); // Log the data
+      this.currencies = data;
+      this.filteredCurrencies = [...data]; // Use spread operator to create a copy of the data
+    }, error => {
+      console.error('Error loading currencies:', error); // Log any errors
+    });
   }
 
   filterTable(): void {
@@ -31,7 +39,7 @@ export class CurrencyComponent implements OnInit {
       } else if (this.searchCriteria === 'currencycode') {
         return currency.currencycode.toLowerCase().includes(query);
       } else if (this.searchCriteria === 'date') {
-        return currency.date.toDateString().toLowerCase().includes(query);
+        return new Date(currency.date).toDateString().toLowerCase().includes(query);
       }
       return false;
     });
@@ -42,19 +50,31 @@ export class CurrencyComponent implements OnInit {
   }
 
   saveCurrency(currency: any): void {
-    currency.isEditing = false;
-    console.log('Currency saved', currency);
-    // Add logic to save the currency data, e.g., send it to the server
+    this.http.put(`${this.apiUrl}/${currency.id}`, currency).subscribe(() => {
+      currency.isEditing = false;
+      console.log('Currency saved', currency);
+    }, error => {
+      console.error('Error saving currency:', error); // Log any errors
+    });
   }
 
   addCurrency(): void {
-    this.currencies.push({ ...this.newCurrency, date: new Date(), isEditing: false });
-    this.newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
-    this.filterTable();
+    this.http.post(this.apiUrl, this.newCurrency).subscribe((currency: any) => {
+      console.log('Currency added:', currency); // Log the added currency
+      this.currencies.push({ ...currency, isEditing: false });
+      this.newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
+      this.filterTable();
+    }, error => {
+      console.error('Error adding currency:', error); // Log any errors
+    });
   }
 
-  deleteCurrency(index: number): void {
-    this.currencies.splice(index, 1);
-    this.filterTable();
+  deleteCurrency(id: number, index: number): void {
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
+      this.currencies.splice(index, 1);
+      this.filterTable();
+    }, error => {
+      console.error('Error deleting currency:', error); // Log any errors
+    });
   }
 }

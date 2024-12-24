@@ -1,3 +1,7 @@
+using SG.FinApp.Server.Data;
+using SG.FinApp.Server.Repositories;
+using SG.FinApp.Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +14,11 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
+
+// Register the CurrencyService with the dependency injection container.
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

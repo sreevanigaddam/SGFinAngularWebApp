@@ -8,6 +8,8 @@ namespace SG.FinApp.EntityLayer.Entities
         public string CurrencyName { get; set; }
         public string CurrencyCode { get; set; }
         public DateTime Date { get; set; }
+
+        public bool isEditing { get; set; }
     }
 }
 

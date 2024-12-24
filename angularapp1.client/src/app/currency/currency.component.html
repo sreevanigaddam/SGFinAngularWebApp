@@ -1,12 +1,15 @@
 <div>
-  <input type="text" [(ngModel)]="searchQuery" placeholder="Search..." (input)="filterTable()">
-  <select [(ngModel)]="searchCriteria" (change)="filterTable()">
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Search...">
+  <select [(ngModel)]="searchCriteria">
     <option value="currencyname">Currency Name</option>
     <option value="currencycode">Currency Code</option>
     <option value="date">Date</option>
   </select>
+  <button (click)="filterTable()">Search</button>
 </div>
 <br />
+
+
 
 <table border="1" align="center">
   <thead>
@@ -19,15 +22,17 @@
   </thead>
   <tbody>
     <tr *ngFor="let currency of filteredCurrencies; let i = index">
-      <td *ngIf="!currency.isEditing">{{ currency.currencyname }}</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyname"></td>
-      <td *ngIf="!currency.isEditing">{{ currency.currencycode }}</td>
+      <td *ngIf="currency.currencyName">{{ currency.currencyName }}</td>
+      <td *ngIf="!currency.currencyName">N/A</td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
+      <td *ngIf="currency.currencyCode">{{ currency.currencyCode }}</td>
+      <td *ngIf="!currency.currencyCode">N/A</td>
       <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>
       <td>{{ currency.date | date }}</td>
       <td>
         <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>
         <button *ngIf="currency.isEditing" (click)="saveCurrency(currency)">Save</button>
-        <button (click)="deleteCurrency(i)">Delete</button>
+        <button (click)="deleteCurrency(currency.id, i)">Delete</button>
       </td>
     </tr>
   </tbody>
