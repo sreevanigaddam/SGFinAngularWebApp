@@ -1,36 +1,47 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AngularApp1.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        [HttpGet]
-        public string Index()
-        {
-            return "reached";
-        }
-
         [HttpPost]
-        public bool xxx([FromBody] User user)
+        public IActionResult Login([FromBody] User request)
         {
-            // Validate the login
-            if (user == null)
+            // Replace with your actual user validation logic
+            if (request.UserName == "admin" && request.Password == "admin")
             {
-                return false;
+                var token = GenerateJwtToken(request.UserName);
+                return Ok(new { token });
             }
 
-            // Add your login validation logic here
-            bool isValidUser = ValidateUser(user);
-
-            return isValidUser;
+            return Unauthorized("Invalid username or password");
         }
 
-        private bool ValidateUser(User user)
+        private string GenerateJwtToken(string username)
         {
-            // Implement your user validation logic here
-            return true; // Placeholder for actual validation logic
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("ChocolatesAreSweetAndDelicious2025!"));
+            // Replace with your secret key
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, username)
+            };
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }
