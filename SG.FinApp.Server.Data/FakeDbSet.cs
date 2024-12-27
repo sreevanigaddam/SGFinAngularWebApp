@@ -40,7 +40,8 @@ public class FakeDbSet<T> : DbSet<T>, IQueryable<T>, IAsyncEnumerable<T>, IEnume
     public override EntityEntry<T> Update(T entity)
     {
 
-        var index = 0; // _data.FindIndex(e => e.Equals(entity));
+        var index = _data.FindIndex(e => EqualityComparer<T>.Default.Equals(e, entity));
+
         if (index >= 0)
         {
             _data[index] = entity;
