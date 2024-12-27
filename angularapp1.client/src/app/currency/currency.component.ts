@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,9 +19,11 @@ export class CurrencyComponent implements OnInit {
 
   private apiUrl = environment.apiUrl + 'currency'; // Replace with your actual API URL
 
-  constructor(private http: HttpClient) { }
+  constructor(public authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) 
+      this.router.navigate(['/login']);
     this.loadCurrencies();
   }
 

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" *ngIf="authService.isAuthenticated()">
-  <a class="navbar-brand" href="#">SG Web Site</a>
+  <a class="navbar-brand" href="#">SG Angular Web Site</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,17 +10,17 @@
         <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/link">Link</a>
+        <a class="nav-link" href="https://github.com/sreevanigaddam/MyFirstAngularApp1">Link(App source code)</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Static Data
+          Market Data
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" routerLink="/currency">Currency</a>
-          <a class="dropdown-item" routerLink="/another-action">Another action</a>
+          <a class="dropdown-item" routerLink="/another-action">Rates</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="/something-else">Something else here</a>
+          <a class="dropdown-item" routerLink="/something-else">...</a>
         </div>
       </li>
       <li class="nav-item">

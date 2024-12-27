@@ -1,52 +1,51 @@
-<div>
-  <input type="text" [(ngModel)]="searchQuery" placeholder="Search...">
-  <select [(ngModel)]="searchCriteria">
-    <option value="currencyname">Currency Name</option>
-    <option value="currencycode">Currency Code</option>
-    <option value="date">Date</option>
-  </select>
-  <button (click)="filterTable()">Search</button>
-</div>
-<br />
+  <div>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search...">
+    <select [(ngModel)]="searchCriteria">
+      <option value="currencyname">Currency Name</option>
+      <option value="currencycode">Currency Code</option>
+      <option value="date">Date</option>
+    </select>
+    <button (click)="filterTable()">Search</button>
+  </div>
+  <br />
+
+  <table border="1" align="center">
+    <thead>
+      <tr>
+        <th>Currency Name</th>
+        <th>Currency Code</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let currency of filteredCurrencies; let i = index">
+        <!--<td *ngIf="currency.currencyName">{{ currency.currencyName }}</td>
+        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
+        <td *ngIf="currency.currencyCode">{{ currency.currencyCode }}</td>
+        <td *ngIf="!currency.currencyCode">N/A</td>
+        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>-->
+
+        <td *ngIf="!currency.isEditing">{{ currency.currencyName }}</td>
+        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
+        <td *ngIf="!currency.isEditing">{{ currency.currencyCode || '' }}</td>
+        <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyCode"></td>
 
 
+        <td>{{ currency.date | date }}</td>
+        <td>
+          <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>
+          <button *ngIf="currency.isEditing" (click)="saveCurrency(currency)">Save</button>
+          <button (click)="deleteCurrency(currency.id, i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <div>
+    <h3>Add New Currency</h3>
+    <input type="text" [(ngModel)]="newCurrency.currencyname" placeholder="Currency Name">
+    <input type="text" [(ngModel)]="newCurrency.currencycode" placeholder="Currency Code">
+    <button (click)="addCurrency()">Add Currency</button>
+  </div>
 
-<table border="1" align="center">
-  <thead>
-    <tr>
-      <th>Currency Name</th>
-      <th>Currency Code</th>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let currency of filteredCurrencies; let i = index">
-      <!--<td *ngIf="currency.currencyName">{{ currency.currencyName }}</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
-      <td *ngIf="currency.currencyCode">{{ currency.currencyCode }}</td>
-      <td *ngIf="!currency.currencyCode">N/A</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>-->
-
-      <td *ngIf="!currency.isEditing">{{ currency.currencyName }}</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
-      <td *ngIf="!currency.isEditing">{{ currency.currencyCode || '' }}</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyCode"></td>
-
-
-      <td>{{ currency.date | date }}</td>
-      <td>
-        <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>
-        <button *ngIf="currency.isEditing" (click)="saveCurrency(currency)">Save</button>
-        <button (click)="deleteCurrency(currency.id, i)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<br />
-<div>
-  <h3>Add New Currency</h3>
-  <input type="text" [(ngModel)]="newCurrency.currencyname" placeholder="Currency Name">
-  <input type="text" [(ngModel)]="newCurrency.currencycode" placeholder="Currency Code">
-  <button (click)="addCurrency()">Add Currency</button>
-</div>
