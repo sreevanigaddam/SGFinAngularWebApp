@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-currency',
@@ -13,7 +15,7 @@ export class CurrencyComponent implements OnInit {
   searchCriteria: string = 'currencyname';
   newCurrency = { currencyname: '', currencycode: '', date: new Date(), isEditing: false };
 
-  private apiUrl = 'http://localhost:5190/api/currency'; // Replace with your actual API URL
+  private apiUrl = environment.apiUrl + 'currency'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) { }
 

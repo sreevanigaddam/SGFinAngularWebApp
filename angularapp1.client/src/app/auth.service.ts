@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5190/api/login'; // Replace with your actual API URL
+  private apiUrl = environment.apiUrl + 'login'; // Replace with your actual API URL
   private isLoggedIn = false;
   constructor(private http: HttpClient, private router: Router) { }
 
