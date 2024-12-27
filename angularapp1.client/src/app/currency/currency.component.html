@@ -22,12 +22,18 @@
   </thead>
   <tbody>
     <tr *ngFor="let currency of filteredCurrencies; let i = index">
-      <td *ngIf="currency.currencyName">{{ currency.currencyName }}</td>
-      <td *ngIf="!currency.currencyName">N/A</td>
+      <!--<td *ngIf="currency.currencyName">{{ currency.currencyName }}</td>
       <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
       <td *ngIf="currency.currencyCode">{{ currency.currencyCode }}</td>
       <td *ngIf="!currency.currencyCode">N/A</td>
-      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencycode"></td>-->
+
+      <td *ngIf="!currency.isEditing">{{ currency.currencyName }}</td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyName"></td>
+      <td *ngIf="!currency.isEditing">{{ currency.currencyCode || '' }}</td>
+      <td *ngIf="currency.isEditing"><input [(ngModel)]="currency.currencyCode"></td>
+
+
       <td>{{ currency.date | date }}</td>
       <td>
         <button *ngIf="!currency.isEditing" (click)="editCurrency(currency)">Edit</button>

@@ -18,7 +18,17 @@ namespace SG.FinApp.Server.Repositories
 
         public async Task<IEnumerable<Currency>> GetAllAsync()
         {
-            return await _context.Currencies.ToListAsync();
+            try
+            { 
+                return await _context.Currencies.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                // Log the exception (you can use a logging framework like Serilog, NLog, etc.)
+                Console.WriteLine($"An error occurred while getting all currencies: {e.Message}");
+                // Return an empty list or handle the error as needed
+                return new List<Currency>();
+            }
         }
 
         public async Task<Currency> GetByIdAsync(int id)
@@ -29,13 +39,13 @@ namespace SG.FinApp.Server.Repositories
         public async Task AddAsync(Currency currency)
         {
             await _context.Currencies.AddAsync(currency);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync(); // Uncomment when database is active
         }
 
         public async Task UpdateAsync(Currency currency)
         {
             _context.Currencies.Update(currency);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync(); // Uncomment when database is active
         }
 
         public async Task DeleteAsync(int id)
@@ -44,7 +54,7 @@ namespace SG.FinApp.Server.Repositories
             if (currency != null)
             {
                 _context.Currencies.Remove(currency);
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync(); // Uncomment when database is active
             }
         }
     }

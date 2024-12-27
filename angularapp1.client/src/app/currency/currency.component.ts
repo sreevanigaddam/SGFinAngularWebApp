@@ -37,9 +37,9 @@ export class CurrencyComponent implements OnInit {
     const query = this.searchQuery.toLowerCase();
     this.filteredCurrencies = this.currencies.filter(currency => {
       if (this.searchCriteria === 'currencyname') {
-        return currency.currencyname.toLowerCase().includes(query);
+        return currency.currencyName.toLowerCase().includes(query);
       } else if (this.searchCriteria === 'currencycode') {
-        return currency.currencycode.toLowerCase().includes(query);
+        return currency.currencyCode.toLowerCase().includes(query);
       } else if (this.searchCriteria === 'date') {
         return new Date(currency.date).toDateString().toLowerCase().includes(query);
       }
