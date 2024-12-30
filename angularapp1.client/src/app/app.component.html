@@ -10,7 +10,7 @@
         <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://github.com/sreevanigaddam/MyFirstAngularApp1">Link(App source code)</a>
+        <a class="nav-link" href="https://github.com/sreevanigaddam/MyFirstAngularApp1" target="_blank" rel="noopener noreferrer">Link(App source code)</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -28,9 +28,9 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  (click)="logout()">Logout</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchQuery">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="onSearch()"  >Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
     </form>
   </div>
 </nav>
