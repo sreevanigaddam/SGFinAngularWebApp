@@ -1,6 +1,4 @@
 import { Link, Outlet } from 'react-router-dom';
-import './Navigation.css';
-
 
 const Navigation = () => {
 
@@ -27,7 +25,7 @@ const Navigation = () => {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <Link className="dropdown-item" to="/currency">Currency</Link>
-                                <Link className="dropdown-item" to="/another-action">Rates</Link>
+                                <Link className="dropdown-item" to="/rates">Rates</Link>
                                 <div className="dropdown-divider"></div>
                                 <Link className="dropdown-item" to="/something-else">...</Link>
                             </div>
