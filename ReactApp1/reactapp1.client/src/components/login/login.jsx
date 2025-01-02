@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -13,12 +14,14 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:5190/api/login', { username, password });
             if (response.status === 200) {
-                navigate('/weather');
+                setIsAuthenticated(true);
+                navigate('/home');
             } else {
                 setErrorMessage('Invalid user');
             }
         } catch (error) {
             setErrorMessage('Invalid user');
+            console.error('Login error:', error);
         }
     };
 
@@ -53,4 +56,10 @@ const Login = () => {
     );
 };
 
+Login.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired,
+};
+
 export default Login;
+
+
