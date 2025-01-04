@@ -1,27 +1,21 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { AuthContext } from './AuthContext';
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5190/api/login', { username, password });
-            if (response.status === 200) {
-                setIsAuthenticated(true);
-                navigate('/home');
-            } else {
-                setErrorMessage('Invalid user');
-            }
-        } catch (error) {
+        const success = await login(username, password);
+        if (success) {
+            navigate('/home');
+        } else {
             setErrorMessage('Invalid user');
-            console.error('Login error:', error);
         }
     };
 
@@ -56,10 +50,8 @@ const Login = ({ setIsAuthenticated }) => {
     );
 };
 
-Login.propTypes = {
-    setIsAuthenticated: PropTypes.func.isRequired,
-};
-
 export default Login;
+
+
 
 
