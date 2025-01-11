@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:5190/api/login', { username, password });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { username, password });
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
                 setIsAuthenticated(true);
@@ -48,5 +48,3 @@ AuthProvider.propTypes = {
 };
 
 export { AuthContext, AuthProvider };
-
-

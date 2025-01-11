@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactApp1.Server", "ReactAp
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactapp1.client", "ReactApp1\reactapp1.client\reactapp1.client.esproj", "{E9D03C64-B05C-4C56-837F-0577224C26D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighPerformanceWebServer", "HighPerformanceWebServer\HighPerformanceWebServer.csproj", "{DE4B319B-519F-476F-A129-BC6EAFCCC910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{E9D03C64-B05C-4C56-837F-0577224C26D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9D03C64-B05C-4C56-837F-0577224C26D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9D03C64-B05C-4C56-837F-0577224C26D5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DE4B319B-519F-476F-A129-BC6EAFCCC910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4B319B-519F-476F-A129-BC6EAFCCC910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4B319B-519F-476F-A129-BC6EAFCCC910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4B319B-519F-476F-A129-BC6EAFCCC910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
